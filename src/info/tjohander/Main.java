@@ -1,7 +1,5 @@
 package info.tjohander;
 
-import static java.lang.Integer.valueOf;
-
 import java.util.*;
 
 class Main {
@@ -11,42 +9,32 @@ class Main {
    */
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
-    String startingPassword = "password";
     int numberOfUpperCase = scanner.nextInt();
     int numberOfLowerCase = scanner.nextInt();
     int numberOfDigits = scanner.nextInt();
     int numberOfSymbols = scanner.nextInt();
 
     String password = "password";
+    char[] charArray = password.toCharArray();
     String result = "";
 
-    for (int i = 0; i < password.length() ; i++) {
-      char current = password.charAt(i);
-      char next = password.charAt(i + 1);
-      char prev = password.charAt(i - 1);
-      if (numberOfUpperCase > 0 && !Character.isUpperCase(current) && !Character.isUpperCase(next) && ) {
-        result = result.concat(Character.toString(Character.toUpperCase(current)));
+    for (int i = 0; i < charArray.length - 1; i++) {
+      char current = charArray[i];
+      char next = charArray[i + 1];
+      if (numberOfUpperCase > 0 && !Character.isUpperCase(current) && !Character.isUpperCase(next)) {
+        charArray[i] = Character.toUpperCase(charArray[i]);
         numberOfUpperCase--;
-        continue;
+        i++;
       }
-
-      if (numberOfLowerCase > 0 && !Character.isUpperCase(current) && !Character.isUpperCase(next)) {
-        current = Character.toLowerCase(current);
-        numberOfLowerCase--;
-      }
-
-      if (numberOfDigits > 0) {
-        current = Character.forDigit(0, 10);
+      if (numberOfDigits > 0 && Character.toLowerCase(charArray[i]) == 'o') {
+        charArray[i] = '0';
         numberOfDigits --;
       }
       // fill on the rest of the required length of a string with the required number of characters
     }
-    // mutate the first char based on count of upper case
-    // move on to next char
-    // mutate based on lower case
-    // move on to next char
+    for (int i = 0; i <= numberOfSymbols ; i++) {
+      result = result.concat(Character.toString(charArray[i]));
+    }
     System.out.println(result);
-
-
   }
 }
